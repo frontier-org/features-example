@@ -56,6 +56,8 @@
     <div class="sidebar">
         <div class="logo">🌐 <span>FRONTIER 2000</span></div>
 
+        <!-- Buttons to execute different types of code -->
+         
         <button onclick="execute('math', '10 50')">
             <div>
                 <strong>NATIVE (GCC)</strong>
@@ -86,9 +88,11 @@
             id: 'github_window',
             icon: 'icon.ico',
 
+            // Security
             ignore_global_security: true, 
             allowed_internal: ['https://github.com/frontier-org/*'], 
 
+            // Size constraints
             width: 850,
             height: 800,
             min_width: 500,
@@ -96,13 +100,14 @@
             max_width: 850,
             max_height: 800,
 
+            // Behavior
             resizable: true,
             maximizable: false,
             minimizable: true,
             maximized: false,
-            
             persistent: false,
 
+            // Position
             x: '(screen_w - win_w) / 2',
             y: '(screen_h - win_h) / 2 - 35'
         });">Frontier Org GitHub</a>
