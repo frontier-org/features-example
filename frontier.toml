@@ -1,9 +1,15 @@
 [app]
-name = "Meu Super App"
+name = "My Super App"
 version = "1.0.0"
-description = "Um aplicativo incrível feito com Frontier"
-copyright = "2025 Minha Empresa Ltda"
-author = "Dev Mestre"
+description = "An amazing application built with Frontier"
+copyright = "2025 My Company Ltd"
+author = "Master Dev"
+icon = "app/frontend/icon.ico" # Must be .ico
 
-# Ícone do Executável (Deve ser .ico)
-icon = "app/frontend/icon.ico"
+[security]
+allowed_internal = [
+    "https://github.com/frontier-org/frontier/*"
+]
+allowed_browser = [
+    "https://github.com/*"
+]

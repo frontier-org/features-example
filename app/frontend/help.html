@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontier Help</title>
+
+    <!-- Unique ID for the persistence save file on Windows -->
+    <meta name="frontier-id" content="help_window">
+
+    <!-- Path to the .ico file for the title bar icon -->
+    <meta name="frontier-icon" content="icon.ico">
+
+    <!-- Sets the initial window width to 1200 pixels -->
+    <meta name="frontier-width" content="500">
+    <!-- Sets the initial window height to 800 pixels -->
+    <meta name="frontier-height" content="575">
+
+    <!-- Horizontal Position: Centers the window using the formula (Screen Width - Window Width) / 2 -->
+    <meta name="frontier-x" content="(screen_w - win_w) / 2">
+    <!-- Vertical Position: Centers the window using the formula (Screen Height - Window Height) / 2 -->
+    <meta name="frontier-y" content="(screen_h - win_h) / 2">
+
+    <!-- Enables saving and restoring window size and position on close -->
+    <meta name="frontier-persistent" content="false">
+    <!-- Allows the user to manually resize the window borders -->
+    <meta name="frontier-resizable" content="false">
+    <!-- Defines that the window should NOT start maximized -->
+    <meta name="frontier-maximized" content="false">
+
+    <!-- Hides the minimize button from the window title bar -->
+    <meta name="frontier-minimizable" content="false">
+    <!-- Shows the maximize button on the window title bar -->
+    <meta name="frontier-maximizable" content="false">
+
+    <!-- Ignore global security whitelist -->
+    <meta name="frontier-ignore-global-security" content="true">
+    <!-- Whitelist for browser navigation -->
+    <meta name="frontier-allowed-browser" content="https://github.com/frontier-org">
+
+    <link rel="stylesheet" href="help.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌐 <span>Frontier Help</span></h1>
+            <p>Documentation and guide for Frontier Desktop Framework</p>
+        </div>
+
+        <div class="section">
+            <h2>📋 Getting Started</h2>
+            <p>
+                Frontier is a desktop application framework that allows you to build native windows applications 
+                using HTML, CSS, and JavaScript, with backend support for C (GCC), Python, and Batch scripts.
+            </p>
+            <h3>Quick Overview</h3>
+            <ul class="feature-list">
+                <li><strong>Native Execution:</strong> Run C programs compiled with GCC for high-performance computing</li>
+                <li><strong>Interpreted Scripts:</strong> Execute Python scripts for AI and data analysis</li>
+                <li><strong>System Integration:</strong> Run Windows batch scripts for system operations</li>
+                <li><strong>Cross-Platform UI:</strong> Build interfaces with HTML/CSS and JavaScript</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Core Features</h2>
+            <h3>Three Execution Modes</h3>
+            <div class="code-block">NATIVE (GCC)     → High-performance C/C++ programs<br>INTERPRETED      → Python scripts and data analysis<br>SYSTEM           → Windows batch and shell operations</div>
+            
+            <h3>Window Management</h3>
+            <p>Control window properties via meta tags in the HTML head:</p>
+            <div class="code-block">&lt;meta name="frontier-width" content="1200"&gt;<br>&lt;meta name="frontier-height" content="800"&gt;<br>&lt;meta name="frontier-resizable" content="true"&gt;</div>
+
+            <h3>IPC Communication</h3>
+            <p>Communicate with the backend using the Frontier API:</p>
+            <div class="code-block">window.Frontier.dispatch(type, message)<br>window.Frontier.spawn(url, config)</div>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ Meta Tags Reference</h2>
+            <h3>Window Configuration</h3>
+            <ul class="feature-list">
+                <li><span class="shortcut">frontier-width</span> - Set window width in pixels</li>
+                <li><span class="shortcut">frontier-height</span> - Set window height in pixels</li>
+                <li><span class="shortcut">frontier-x</span> - Horizontal position (use expressions)</li>
+                <li><span class="shortcut">frontier-y</span> - Vertical position (use expressions)</li>
+                <li><span class="shortcut">frontier-min-width</span> - Minimum window width</li>
+                <li><span class="shortcut">frontier-max-width</span> - Maximum window width</li>
+                <li><span class="shortcut">frontier-resizable</span> - Allow window resizing</li>
+                <li><span class="shortcut">frontier-maximizable</span> - Show maximize button</li>
+                <li><span class="shortcut">frontier-persistent</span> - Save/restore window state</li>
+            </ul>
+
+            <h3>Security & Navigation</h3>
+            <ul class="feature-list">
+                <li><span class="shortcut">frontier-allowed-internal</span> - Whitelist for internal navigation</li>
+                <li><span class="shortcut">frontier-ignore-global-security</span> - Bypass security whitelist</li>
+                <li><span class="shortcut">frontier-allowed-browser</span> - Whitelist for browser navigation</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔧 API Examples</h2>
+            
+            <h3>Executing Programs</h3>
+            <div class="code-block">execute('math', '10 50');       // Run native C program<br>execute('analysis', 'VIP_Client'); // Run Python script<br>execute('task', '');              // Run batch script</div>
+
+            <h3>Opening External Windows</h3>
+            <div class="code-block">Frontier.spawn('https://example.com', {<br>&nbsp;&nbsp;title: 'New Window',<br>&nbsp;&nbsp;width: 800,<br>&nbsp;&nbsp;height: 600,<br>&nbsp;&nbsp;resizable: true<br>});</div>
+
+            <h3>Terminal Output</h3>
+            <div class="code-block">const terminal = document.getElementById('terminal');<br>terminal.innerHTML += '&lt;div class="log-entry"&gt;...&lt;/div&gt;';</div>
+        </div>
+
+        <div class="section">
+            <h2>📁 Project Structure</h2>
+            <div class="code-block">frontier/<br>&nbsp;&nbsp;├── app/backend/       // Backend programs<br>&nbsp;&nbsp;│&nbsp;&nbsp;├── analysis.py    // Python scripts<br>&nbsp;&nbsp;│&nbsp;&nbsp;├── math.c         // C source code<br>&nbsp;&nbsp;│&nbsp;&nbsp;└── task.bat       // Batch scripts<br>&nbsp;&nbsp;└── frontend/        // Frontend files<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── index.html<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── style.css<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── frontier-api.js</div>
+        </div>
+
+        <div class="section">
+            <h2>💡 Tips & Best Practices</h2>
+            <ul class="feature-list">
+                <li>Use <code class="shortcut">frontier-persistent="true"</code> to save window state between sessions</li>
+                <li>Use expressions like <code class="shortcut">(screen_w - win_w) / 2</code> for centering</li>
+                <li>Separate security: <code class="shortcut">ignore_global_security</code> for specific windows only</li>
+                <li>Test IPC communication: Check for <code class="shortcut">window.ipc</code> availability</li>
+                <li>Use meta tags for configuration instead of hardcoding values</li>
+                <li>Always provide fallback UI for standalone/web environments</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔗 Resources</h2>
+            <ul class="feature-list">
+                <li><a href="https://github.com/frontier-org">Frontier GitHub Organization</a></li>
+                <li>Check the <code class="shortcut">frontier.toml</code> for project configuration</li>
+                <li>Review the <code class="shortcut">MANUAL.md</code> for detailed documentation</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>Frontier v1.0.0 • Desktop Framework for HTML/CSS/JavaScript</p>
+            <p style="margin-top: 10px; font-size: 12px;">
+                For more information, visit <a href="https://github.com/frontier-org">Frontier Org</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="frontier-api.js"></script>
+</body>
+</html>

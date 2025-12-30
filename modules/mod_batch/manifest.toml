@@ -1,0 +1,7 @@
+name = "Mod Batch"
+version = "1.0.0"
+extension = "bat"
+interpreter = "cmd /c"
+
+[dev]
+strategy = "interpreter"
