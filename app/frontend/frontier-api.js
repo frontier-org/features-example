@@ -1,25 +1,18 @@
 /**
- * Frontier API - Desktop Framework for HTML/CSS/JavaScript
- * 
- * This file is designed to be injected by the Rust runtime into every HTML page.
- * It provides:
+ * This file provides:
  * - IPC communication with the backend
  * - Window spawning capabilities
  * - Intelligent link routing
- * 
- * RUST INJECTION:
- * Inject this script into <head> or after <body> loads in the page HTML
- * Example: `<script>${FRONTIER_API_CONTENT}</script>`
  */
 
 if (!window.Frontier) {
     window.Frontier = {
 
-            /**
-             * Dispatches a message to the Rust backend and updates the terminal log.
-             * @param {string} type - The type of message to dispatch.
-             * @param {string} msg - The message to dispatch.
-             */
+        /**
+         * Dispatches a message to the Rust backend and updates the terminal log.
+         * @param {string} type - The type of message to dispatch.
+         * @param {string} msg - The message to dispatch.
+         */
         dispatch: (type, msg) => {
             const term = document.getElementById('terminal');
             console.log(`[Frontier IPC] ${type}: ${msg}`);
@@ -34,9 +27,9 @@ if (!window.Frontier) {
         },
 
         /**
-         * Abre uma nova janela nativa.
-         * @param {string} url - Caminho local (index.html) ou URL externa.
-         * @param {object} config - Objeto com as metas (width, height, title, etc).
+         * Opens a new native window.
+         * @param {string} url - Local path (index.html) or external URL.
+         * @param {object} config - Object with window properties (width, height, title, etc).
          */
         spawn: (url, config = {}) => {
             const configStr = Object.entries(config)
@@ -83,25 +76,3 @@ function clearLog() {
         term.innerHTML = '';
     }
 }
-
-/**
- * AUTO-INITIALIZATION (Legacy Support)
- * 
- * When this file is loaded as a traditional <script src="frontier-api.js"></script>,
- * it will automatically initialize the link router.
- * 
- * When injected by Rust, the runtime will call Frontier.initLinkRouter() directly.
- */
-(function autoInitialize() {
-    const initRouter = () => {
-        if (window.Frontier && window.Frontier.initLinkRouter) {
-            window.Frontier.initLinkRouter();
-        }
-    };
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initRouter);
-    } else {
-        initRouter();
-    }
-})();
