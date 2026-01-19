@@ -1,13 +1,22 @@
-Features Example
-Copyright 2026 The Frontier Framework Authors
+[product name]
+Copyright [yyyy] [name of copyright owner]
 
-This product includes software developed by The Frontier Framework Authors
-(https://github.com/frontier-org/features-example).
+This product includes software developed by [name of copyright owner]
+([product website]).
 
-This software is dual-licensed under the Apache License, Version 2.0 and
-the MIT License.
+[license]
 
 This product includes the following third-party software:
+
+Frontier Framework
+Copyright (c) 2026 The Frontier Framework Authors
+https://github.com/frontier-org/frontier
+Apache-2.0 OR MIT
+
+Frontier Modules
+Copyright (c) 2026 The Frontier Framework Authors
+https://github.com/frontier-org/modules
+Apache-2.0 OR MIT
 
 Wry
 Copyright (c) 2019-2023 Tauri Programme within The Commons Conservancy
@@ -31,5 +40,5 @@ Apache-2.0 OR MIT
 
 Other dependencies included via Cargo (as listed in Cargo.toml):
 The dependencies uuid, walkdir, image, regex, evalexpr, notify,
-mime_guess, native-dialog, percent-encoding, and webbrowser are, for the
-most part, licensed under Apache-2.0 OR MIT.
+mime_guess, native-dialog, percent-encoding, and webbrowser are,
+for the most part, licensed under MIT OR Apache-2.0
