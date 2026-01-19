@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0 OR MIT
 
 [app]
-name = "My Super App"
+name = "Features Example"
 version = "1.0.0"
-description = "An amazing application built with Frontier"
-copyright = "2025 My Company Ltd"
-author = "Master Dev"
+description = "Example app with all features, to see how to use Frontier"
+copyright = "2026 The Frontier Framework Authors"
+author = "The Frontier Framework Authors"
 icon = "app/frontend/icon.ico" # Must be .ico
 
 [security]
