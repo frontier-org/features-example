@@ -1,0 +1,94 @@
+# Copyright (c) 2026 The Frontier Framework Authors
+# SPDX-License-Identifier: Apache-2.0 OR MIT
+
+name: Build Windows Frontier App Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows-release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      # --- Install Dependencies ---
+
+      # Cache MinGW (GCC) to avoid re-downloading via Choco (saves ~2 mins)
+      - name: Cache MinGW
+        id: cache-mingw
+        uses: actions/cache@v4
+        with:
+          path: C:\ProgramData\chocolatey\lib\mingw
+          key: ${{ runner.os }}-mingw
+
+      - name: Set up GCC (MinGW)
+        if: steps.cache-mingw.outputs.cache-hit != 'true'
+        run: |
+          choco install mingw --unattended
+          echo "C:\tools\mingw64\bin" >> $env:GITHUB_PATH
+
+      # Cache Rust & Cargo dependencies + Frontier's custom target folder
+      - name: Cache Frontier and Rust
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            .frontier/target/debug/
+            .frontier/target/release/
+          key: ${{ runner.os }}-frontier-${{ hashFiles('**/frontier.toml', '**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-frontier-
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      # --- Install Frontier ---
+
+      - name: Install Frontier CLI
+        run: |
+          echo "" | powershell -nop "iex(irm https://frontier-fw.dev/get.ps1)"
+
+      # --- Build Process ---
+
+      - name: Build Frontier App
+        run: .\frontier build
+
+      - name: Extract App Information
+        id: get_app_info
+        shell: pwsh
+        run: |
+          $appName = "MyApp"
+          if (Test-Path frontier.toml) {
+              $toml = Get-Content frontier.toml -Raw
+              if ($toml -match '(?ms)\[app\].*?name\s*=\s*"(?<name>[^"]+)"') {
+                  $appName = $Matches['name']
+              }
+          }
+          echo "APP_NAME=$appName" >> $env:GITHUB_ENV
+          echo "APP_PATH=./dist/$appName.exe" >> $env:GITHUB_ENV
+
+      # --- Release ---
+
+      - name: Create Release and Upload File
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "${{ github.repository }} - ${{ github.ref_name }}"
+          generate_release_notes: true
+          files: ${{ env.APP_PATH }}
+          prerelease: ${{ contains(github.ref_name, '-') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
