@@ -22,7 +22,7 @@ jobs:
 
       # --- Install Dependencies ---
 
-      - name: Cache MinGW
+      - name: Cache MinGW (GCC)
         id: cache-mingw
         uses: actions/cache@v4
         with:
@@ -36,7 +36,7 @@ jobs:
           choco install mingw --unattended
           echo "C:\tools\mingw64\bin" >> $env:GITHUB_PATH
 
-      - name: Cache Rust and Frontier
+      - name: Cache Rust
         uses: actions/cache@v4
         with:
           path: |
@@ -44,17 +44,24 @@ jobs:
             ~/.cargo/registry/index/
             ~/.cargo/registry/cache/
             ~/.cargo/git/db/
-            .frontier/target/debug/
-            .frontier/target/release/
-          key: ${{ runner.os }}-frontier-${{ hashFiles('**/frontier.toml', '**/Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-frontier-
+          key: ${{ runner.os }}-cargo-v1
+          restore-keys: ${{ runner.os }}-cargo-
 
-      - name: Install Rust
+      - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
 
       # --- Install Frontier ---
+
+      - name: Cache Frontier
+        uses: actions/cache@v4
+        with:
+          path: |
+            .frontier/target/debug/
+            .frontier/target/release/
+          key: ${{ runner.os }}-frontier-${{ hashFiles('.frontier/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-frontier-
 
       - name: Install Frontier
         shell: pwsh
