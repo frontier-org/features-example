@@ -12,13 +12,11 @@ permissions:
   contents: write
 
 jobs:
-  build-windows-release:
+  build-windows:
     runs-on: windows-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          ref: main
 
       # --- Install Dependencies ---
 
