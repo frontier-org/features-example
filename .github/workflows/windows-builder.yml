@@ -28,6 +28,7 @@ jobs:
         with:
           path: C:\ProgramData\chocolatey\lib\mingw
           key: ${{ runner.os }}-mingw
+          restore-keys: ${{ runner.os }}-mingw-
 
       - name: Set up MinGW (GCC)
         if: steps.cache-mingw.outputs.cache-hit != 'true'
