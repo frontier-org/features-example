@@ -22,24 +22,6 @@ jobs:
 
       # --- Install Dependencies ---
 
-      - name: Set up Java (JDK)
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          # setup-java has built-in caching for build tools if you use Maven/Gradle
-          # cache: 'gradle' 
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: 'stable'
-          cache: true # Built-in Go cache
-      
-      - name: Install Go Dependencies
-        run: go mod download
-
-      # Cache MinGW (GCC) to avoid re-downloading via Choco (saves ~2 mins)
       - name: Cache MinGW
         id: cache-mingw
         uses: actions/cache@v4
@@ -53,8 +35,7 @@ jobs:
           choco install mingw --unattended
           echo "C:\tools\mingw64\bin" >> $env:GITHUB_PATH
 
-      # Cache Rust & Cargo dependencies + Frontier's custom target folder
-      - name: Cache Frontier and Rust
+      - name: Cache Rust and Frontier
         uses: actions/cache@v4
         with:
           path: |
@@ -65,8 +46,7 @@ jobs:
             .frontier/target/debug/
             .frontier/target/release/
           key: ${{ runner.os }}-frontier-${{ hashFiles('**/frontier.toml', '**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-frontier-
+          restore-keys: ${{ runner.os }}-frontier-
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
